@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historique des Recommandations - Assistant IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    /* Variables identiques à celles utilisées dans l'application principale */
+    :root{
+      --bg: #f4f7ff;
+      --bg2: #eef2ff;
+      --surface: rgba(255,255,255,.72);
+      --text: #101828;
+      --muted: #667085;
+      --primary: #7c3aed;
+      --shadow: 0 24px 70px rgba(16,24,40,.08);
+      --shadow-soft: 0 12px 28px rgba(16,24,40,.05);
+      --radius-xl: 32px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg), var(--bg2));
+    }
+    .navbar {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      background: rgba(255,255,255,.58);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(148,163,184,.12);
+    }
+    .navbar-inner {
+      width: min(1200px, 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-name { font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; }
+    .btn-nav {
+      padding: 10px 16px;
+      background: #fff;
+      color: var(--primary);
+      border: 1px solid rgba(124,58,237,.16);
+      font-weight: 800;
+      font-size: 13px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: var(--shadow-soft);
+    }
+    .page {
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      padding: 40px 18px;
+    }
+    .header { text-align: center; margin-bottom: 40px; }
+    .header h1 { font-family: 'Nunito', sans-serif; font-size: 32px; font-weight: 900; margin-bottom: 10px; }
+    .rec-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .rec-card {
+      background: var(--surface);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.55);
+    }
+    .rec-date {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-weight: bold;
+    }
+    .rec-source {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      padding: 12px;
+      background: rgba(255,255,255,.5);
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,.15);
+      font-style: italic;
+    }
+    .rec-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+    .rec-item {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+      padding: 12px 16px;
+      background: rgba(124,58,237,.05);
+      border: 1px solid rgba(124,58,237,.15);
+      border-radius: 12px;
+      position: relative;
+      padding-left: 40px;
+    }
+    .rec-item::before {
+      content: "💡";
+      position: absolute;
+      left: 14px;
+      top: 12px;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+    .page-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid rgba(124,58,237,.2);
+    }
+    .page-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="brand-name">Mon Espace</div>
+      <div>
+        <a href="/" class="btn-nav">Retour à l'accueil</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="header">
+      <h1>Historique des Recommandations</h1>
+      <p style="color: var(--muted);">Retrouvez ici tous les points clés extraits de vos cours (Total : {{ total_recs }})</p>
+    </div>
+
+    {% if recommendations %}
+      <div class="rec-grid">
+        {% for rec in recommendations %}
+        <div class="rec-card">
+          <div class="rec-date">Généré le {{ rec.created_at }}</div>
+          {% if rec.source_text %}
+            <div class="rec-source">
+              <strong>Source :</strong> "{{ rec.source_text }}..."
+            </div>
+          {% endif %}
+          <ul class="rec-list">
+            {% for item in rec.recommendations %}
+              <li class="rec-item">{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% if total_pages > 1 %}
+      <div class="pagination">
+        {% if page > 1 %}
+          <a href="{{ url_for('historique_recommandations', page=page-1) }}" class="page-btn">Précédent</a>
+        {% endif %}
+        
+        <span class="page-btn active">{{ page }} / {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+          <a href="{{ url_for('historique_recommandations', page=page+1) }}" class="page-btn">Suivant</a>
+        {% endif %}
+      </div>
+      {% endif %}
+
+    {% else %}
+      <div class="empty-state">
+        <h2>Aucune recommandation trouvée</h2>
+        <p>Générez des recommandations depuis la page d'accueil pour les retrouver ici.</p>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>

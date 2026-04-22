@@ -1,0 +1,1808 @@
+[
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-14 21:32"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-14 21:32"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-14 21:43"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-15 15:23"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.6666666666666666,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8,
+    "date": "2026-04-15 15:28"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-15 15:36"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-15 15:40"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-15 15:43"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-15 15:47"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-15 15:49"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-15 15:53"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-15 15:57"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-15 16:01"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-15 22:08"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "date": "2026-04-16 09:39"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "date": "2026-04-16 09:43"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "date": "2026-04-16 09:46"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "date": "2026-04-16 09:49"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "date": "2026-04-16 09:59"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "date": "2026-04-16 11:17"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:26"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:28"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:30"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:41"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:42"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:42"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:42"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:43"
+  },
+  {
+    "module": "Recommandation",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:43"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:48"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:51"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:52"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:57"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.85,
+    "date": "2026-04-16 11:58"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:00"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:00"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:02"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:08"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:08"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:15"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:17"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:18"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:22"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:25"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:26"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:26"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:27"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:30"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 12:35"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:19"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:24"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:33"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:34"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:35"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:37"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:41"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:44"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:48"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:48"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:49"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:50"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:53"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:57"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:57"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:58"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 18:59"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 19:18"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 19:20"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 19:55"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 19:55"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 19:56"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 19:57"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 20:08"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 20:09"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 20:09"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 20:34"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 20:34"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 20:37"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:03"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:05"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:06"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:10"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:13"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:14"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:17"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:21"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:24"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:25"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-16 21:27"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-16 21:31"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-16 21:32"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 09:58"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 09:59"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 10:04"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 10:11"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 10:11"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 11:37"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 14:13"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 14:14"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 14:24"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 14:25"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 14:25"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 14:25"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 14:26"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 14:31"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 14:32"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 16:10"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 16:11"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 16:13"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 16:15"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 16:15"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 16:18"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 16:19"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 16:38"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 16:43"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 16:46"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:02"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 18:03"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:04"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:08"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:10"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 18:12"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:13"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:14"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:18"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:24"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:24"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:25"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:39"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:48"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 18:51"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 19:24"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 19:25"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 19:51"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 19:55"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:01"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:09"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:11"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:12"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:16"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:20"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:21"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:22"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:24"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 20:25"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 20:26"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:29"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:31"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 20:33"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 20:43"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 21:56"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 22:03"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-17 22:06"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-17 22:10"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 09:49"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 09:58"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 10:02"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 10:07"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 10:08"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 10:12"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 10:13"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 10:20"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 10:25"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 10:39"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 10:44"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 16:24"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 17:52"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 17:55"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 17:56"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 17:58"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 18:06"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 18:25"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 18:56"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 19:03"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 19:04"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 19:05"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 19:05"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 19:14"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-18 19:16"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-18 19:24"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-18 19:33"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-18 19:35"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 19:39"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-18 19:40"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-18 21:08"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 21:22"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-18 21:23"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 21:30"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 21:32"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-18 21:35"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 21:39"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 21:41"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-18 21:46"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-19 20:51"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-19 20:54"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-19 20:55"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-19 20:56"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-19 21:00"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-20 08:43"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-20 08:44"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-20 08:46"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-20 08:47"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-20 08:55"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-20 09:01"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-20 17:49"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-20 17:51"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-20 17:52"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-20 17:53"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-20 17:56"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-20 17:57"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-20 21:22"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-20 21:26"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-20 21:26"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-20 21:29"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-20 21:35"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-21 17:56"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-21 17:58"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-21 17:59"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-21 18:00"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-21 18:01"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-21 18:07"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5714285714285714,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "date": "2026-04-21 18:22"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-21 18:34"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-21 18:50"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-21 19:02"
+  },
+  {
+    "module": "Recommender",
+    "accuracy": 0.6,
+    "precision": 0.6666666666666666,
+    "recall": 0.6666666666666666,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-21 19:38"
+  },
+  {
+    "module": "R\u00e9sum\u00e9",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-21 19:40"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-21 19:43"
+  },
+  {
+    "module": "Chatbot",
+    "accuracy": 0.75,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571,
+    "date": "2026-04-21 19:51"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-21 20:04"
+  },
+  {
+    "module": "QCM",
+    "accuracy": 0.5,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666,
+    "date": "2026-04-21 20:24"
+  }
+]

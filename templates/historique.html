@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historique des QCM - Assistant IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    /* Réutilisation des variables CSS principales de index.html pour la cohérence */
+    :root{
+      --bg: #f4f7ff;
+      --bg2: #eef2ff;
+      --surface: rgba(255,255,255,.72);
+      --text: #101828;
+      --muted: #667085;
+      --primary: #7c3aed;
+      --primary-soft: rgba(124,58,237,.10);
+      --success: #10b981;
+      --shadow: 0 24px 70px rgba(16,24,40,.08);
+      --shadow-soft: 0 12px 28px rgba(16,24,40,.05);
+      --radius-xl: 32px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg), var(--bg2));
+    }
+    .navbar {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      background: rgba(255,255,255,.58);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(148,163,184,.12);
+    }
+    .navbar-inner {
+      width: min(1200px, 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-name { font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; }
+    .btn-nav {
+      padding: 10px 16px;
+      background: #fff;
+      color: var(--primary);
+      border: 1px solid rgba(124,58,237,.16);
+      font-weight: 800;
+      font-size: 13px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: var(--shadow-soft);
+    }
+    .page {
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      padding: 40px 18px;
+    }
+    .header { text-align: center; margin-bottom: 40px; }
+    .header h1 { font-family: 'Nunito', sans-serif; font-size: 32px; font-weight: 900; margin-bottom: 10px; }
+    .qcm-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .qcm-card {
+      background: var(--surface);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.55);
+    }
+    .qcm-date {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .qcm-question {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .qcm-options {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .qcm-option {
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.8);
+      border: 1px solid rgba(148,163,184,.2);
+      font-size: 14px;
+    }
+    .qcm-option.correct {
+      background: rgba(16,185,129,.1);
+      border-color: rgba(16,185,129,.5);
+      color: #065f46;
+      font-weight: 600;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 40px;
+    }
+    .page-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid rgba(124,58,237,.2);
+    }
+    .page-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="brand-name">Mon Espace</div>
+      <div>
+        <a href="/" class="btn-nav">Retour à l'accueil</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="header">
+      <h1>Historique de vos QCM</h1>
+      <p style="color: var(--muted);">Retrouvez ici tous les QCM que vous avez générés (Total : {{ total_qcms }})</p>
+    </div>
+
+    {% if qcms %}
+      <div class="qcm-grid">
+        {% for qcm in qcms %}
+        <div class="qcm-card">
+          <div class="qcm-date">Généré le {{ qcm.created_at }}</div>
+          <div class="qcm-question">{{ qcm.question }}</div>
+          <ul class="qcm-options">
+            {% for opt in qcm.options %}
+              <li class="qcm-option {% if opt == qcm.answer %}correct{% endif %}">
+                {% if opt == qcm.answer %}✅ {% endif %}{{ opt }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+
+      {% if total_pages > 1 %}
+      <div class="pagination">
+        {% if page > 1 %}
+          <a href="{{ url_for('historique', page=page-1) }}" class="page-btn">Précédent</a>
+        {% endif %}
+        
+        <span class="page-btn active">{{ page }} / {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+          <a href="{{ url_for('historique', page=page+1) }}" class="page-btn">Suivant</a>
+        {% endif %}
+      </div>
+      {% endif %}
+
+    {% else %}
+      <div class="empty-state">
+        <h2>Aucun QCM trouvé</h2>
+        <p>Générez des QCM depuis la page d'accueil pour les retrouver ici.</p>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>

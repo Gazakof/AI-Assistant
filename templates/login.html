@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connexion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ══ THÈME CLAIR (défaut) ══ */
+    :root,
+    [data-theme="light"] {
+      --purple:      #7B7CF8;
+      --purple-dark: #6364e0;
+      --purple-deep: #5253c8;
+      --text-dark:   #1a1a2e;
+      --text-mid:    #6b7280;
+      --text-light:  #adb5bd;
+      --border-line: #e2e4ea;
+      --bg-page:     #f0f0fa;
+      --white:       #ffffff;
+      --error:       #ef4444;
+      --card-shadow: rgba(100,100,248,.18);
+      --input-bg:    transparent;
+      --toggle-bg:   rgba(123,124,248,.12);
+      --toggle-icon-off: "🌙";
+    }
+
+    /* ══ THÈME SOMBRE ══ */
+    [data-theme="dark"] {
+      --purple:      #9394ff;
+      --purple-dark: #7B7CF8;
+      --purple-deep: #6364e0;
+      --text-dark:   #e8e8f5;
+      --text-mid:    #9ca3af;
+      --text-light:  #6b7280;
+      --border-line: #2e2e4a;
+      --bg-page:     #0f0f1a;
+      --white:       #1a1a2e;
+      --error:       #f87171;
+      --card-shadow: rgba(0,0,0,.45);
+      --input-bg:    transparent;
+      --toggle-bg:   rgba(147,148,255,.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-page);
+      font-family: 'Poppins', sans-serif;
+      padding: 24px;
+      transition: background .35s ease;
+    }
+
+    /* ══ CARD ══ */
+    .card {
+      display: flex;
+      width: 900px;
+      max-width: 100%;
+      min-height: 560px;
+      background: var(--white);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 28px 80px var(--card-shadow);
+      animation: rise .55s cubic-bezier(.4,0,.2,1) both;
+      transition: background .35s ease, box-shadow .35s ease;
+    }
+    @keyframes rise {
+      from { opacity:0; transform:translateY(30px) scale(.98); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+
+    /* ══ LEFT PANEL ══ */
+    .left {
+      width: 340px;
+      flex-shrink: 0;
+      background: var(--purple);
+      padding: 36px 32px 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: background .35s ease;
+    }
+    .left::before {
+      content:'';
+      position:absolute;inset:0;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,.12) 0%, transparent 60%),
+                  radial-gradient(circle at 80% 80%, rgba(50,30,200,.25) 0%, transparent 55%);
+      pointer-events:none;
+    }
+
+    .brand {
+      z-index:2; display:flex; align-items:center; gap:8px; margin-bottom:30px;
+    }
+    .brand-icon {
+      width:36px; height:36px; background:rgba(255,255,255,.22); border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:16px; font-weight:900; color:#fff; font-family:'Nunito',sans-serif;
+    }
+    .brand-text { font-size:11px; color:rgba(255,255,255,.9); line-height:1.3; }
+    .brand-text strong { display:block; font-size:13px; font-weight:700; }
+
+    .left-heading {
+      z-index:2; font-family:'Nunito',sans-serif;
+      font-size:28px; font-weight:900; color:#fff;
+      line-height:1.28; letter-spacing:-.3px; margin-bottom:24px;
+    }
+
+    .floaters { position:absolute; inset:0; z-index:1; pointer-events:none; }
+    .floater {
+      position:absolute; font-size:32px;
+      filter:drop-shadow(0 6px 14px rgba(0,0,0,.22));
+      animation:float 4s ease-in-out infinite;
+    }
+    .f1 { top:14%; right:14%; animation-delay:0s;    animation-duration:3.8s; font-size:30px; }
+    .f2 { top:28%; right:28%; animation-delay:-1.2s; animation-duration:4.4s; font-size:24px; }
+    .f3 { top:10%; left:52%;  animation-delay:-2.1s; animation-duration:3.5s; font-size:28px; }
+    .f4 { top:42%; right:8%;  animation-delay:-.7s;  animation-duration:5s;   font-size:22px; }
+    .f5 { top:55%; left:18%;  animation-delay:-1.8s; animation-duration:4.2s; font-size:26px; }
+    @keyframes float {
+      0%,100% { transform:translateY(0) rotate(-4deg); }
+      50%      { transform:translateY(-12px) rotate(4deg); }
+    }
+
+    .illustration {
+      margin-top:auto; z-index:2;
+      display:flex; justify-content:center; align-items:flex-end;
+    }
+    .illustration svg { width:100%; max-width:280px; }
+
+    /* ══ RIGHT PANEL ══ */
+    .right {
+      flex:1;
+      padding: 36px 48px;
+      display: flex;
+      flex-direction: column;
+      transition: background .35s ease;
+    }
+
+    /* ── Header row ── */
+    .right-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      gap: 12px;
+    }
+
+    .right-title {
+      font-family:'Nunito',sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -.2px;
+      transition: color .35s ease;
+    }
+
+    /* Groupe : toggle thème + langue */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    /* ══ TOGGLE THÈME ══ */
+    .theme-toggle {
+      position: relative;
+      width: 52px;
+      height: 28px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .theme-toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+    .track {
+      position: absolute;
+      inset: 0;
+      border-radius: 50px;
+      background: var(--toggle-bg);
+      border: 1.5px solid var(--border-line);
+      transition: background .35s ease, border-color .35s ease;
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+    }
+    .thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--purple);
+      box-shadow: 0 2px 8px rgba(123,124,248,.4);
+      transition: transform .35s cubic-bezier(.4,0,.2,1), background .35s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      line-height: 1;
+    }
+    /* En mode sombre le thumb se déplace à droite */
+    [data-theme="dark"] .thumb {
+      transform: translateX(24px);
+    }
+
+    /* Icônes soleil/lune dans le track */
+    .track-icons {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+      pointer-events: none;
+      font-size: 10px;
+    }
+
+    .lang-select {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--text-mid);
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family:'Poppins',sans-serif;
+      transition: color .35s ease;
+      flex-shrink: 0;
+    }
+    .lang-select svg { width:12px; height:12px; }
+
+    /* ── Message d'erreur ── */
+    .error-msg {
+      display: none;
+      align-items: center;
+      gap: 7px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--error);
+      margin-bottom: 20px;
+      transition: background .35s, border-color .35s;
+    }
+    [data-theme="dark"] .error-msg {
+      background: rgba(248,113,113,.08);
+      border-color: rgba(248,113,113,.3);
+    }
+
+    /* ── Formulaire ── */
+    .form-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .field { margin-bottom: 20px; }
+
+    .field-label {
+      display: block;
+      font-size: 11px;
+      color: var(--text-light);
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      transition: color .35s ease;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .field input[type="text"],
+    .field input[type="password"] {
+      width: 100%;
+      padding: 10px 40px 10px 0;
+      border: none;
+      border-bottom: 1.5px solid var(--border-line);
+      background: var(--input-bg);
+      font-size: 13.5px;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color .2s, color .35s ease, background .35s ease;
+    }
+    .field input::placeholder { color: var(--text-light); }
+    .field input:focus { border-color: var(--purple); }
+
+    /* Fix autofill dark mode */
+    [data-theme="dark"] .field input:-webkit-autofill,
+    [data-theme="dark"] .field input:-webkit-autofill:hover,
+    [data-theme="dark"] .field input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 1000px #1a1a2e inset !important;
+      -webkit-text-fill-color: #e8e8f5 !important;
+      caret-color: #e8e8f5;
+    }
+
+    .eye-btn {
+      position: absolute;
+      right: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      transition: color .2s;
+      flex-shrink: 0;
+    }
+    .eye-btn:hover { color: var(--purple); }
+
+    .options-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 26px;
+      margin-top: 4px;
+    }
+
+    .remember-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .remember-check input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--purple);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .remember-check label {
+      font-size: 12px;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: color .35s ease;
+    }
+
+    .forgot-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--purple);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color .35s ease;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+
+    .btn-main {
+      width: 100%;
+      padding: 14px;
+      background: var(--purple);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      letter-spacing: .3px;
+      margin-bottom: 24px;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 8px 28px rgba(123,124,248,.35);
+    }
+    .btn-main:hover {
+      background: var(--purple-dark);
+      box-shadow: 0 12px 36px rgba(123,124,248,.45);
+      transform: translateY(-1px);
+    }
+    .btn-main:active { transform: scale(.98); box-shadow: none; }
+
+    .footer-text {
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-light);
+      transition: color .35s ease;
+    }
+    .footer-text a {
+      color: var(--purple);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .35s ease;
+    }
+    .footer-text a:hover { text-decoration: underline; }
+
+    /* ══ TOAST ══ */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1a1a2e;
+      color: #fff;
+      font-size: 12.5px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.22);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s, transform .3s;
+      white-space: nowrap;
+      z-index: 999;
+    }
+    [data-theme="dark"] .toast {
+      background: #e8e8f5;
+      color: #1a1a2e;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 660px) {
+      .left { display: none; }
+      .right { padding: 30px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="card">
+
+  <!-- ══ PANNEAU GAUCHE ══ -->
+  <div class="left">
+    <div class="brand">
+      <div class="brand-icon">✳</div>
+      <div class="brand-text">
+        <strong>Mon Espace</strong>
+        Organisez, apprenez, progressez
+      </div>
+    </div>
+
+    <h2 class="left-heading">Bon retour !<br>Reprenez là<br>où vous en étiez.</h2>
+
+    <div class="floaters">
+      <span class="floater f1">🏆</span>
+      <span class="floater f2">⚡</span>
+      <span class="floater f3">💡</span>
+      <span class="floater f4">🎯</span>
+      <span class="floater f5">📊</span>
+    </div>
+
+    <div class="illustration">
+      <svg viewBox="0 0 280 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="145" width="240" height="12" rx="4" fill="rgba(255,255,255,.25)"/>
+        <rect x="30" y="157" width="10" height="30" rx="3" fill="rgba(255,255,255,.18)"/>
+        <rect x="240" y="157" width="10" height="30" rx="3" fill="rgba(255,255,255,.18)"/>
+        <rect x="126" y="118" width="8" height="28" rx="2" fill="rgba(255,255,255,.3)"/>
+        <rect x="112" y="143" width="36" height="4" rx="2" fill="rgba(255,255,255,.25)"/>
+        <rect x="82" y="68" width="116" height="52" rx="8" fill="rgba(255,255,255,.22)"/>
+        <rect x="88" y="74" width="104" height="40" rx="5" fill="rgba(255,255,255,.15)"/>
+        <rect x="91" y="77" width="98" height="34" rx="4" fill="rgba(180,180,255,.25)"/>
+        <rect x="128" y="87" width="24" height="18" rx="4" fill="rgba(255,255,255,.35)"/>
+        <path d="M132 87 Q132 81 140 81 Q148 81 148 87" stroke="rgba(255,255,255,.6)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="140" cy="96" r="3" fill="rgba(255,255,255,.7)"/>
+        <rect x="88" y="148" width="80" height="8" rx="3" fill="rgba(255,255,255,.2)"/>
+        <ellipse cx="195" cy="152" rx="20" ry="8" fill="rgba(255,255,255,.15)"/>
+        <path d="M182 152 Q176 168 168 175" stroke="rgba(255,255,255,.5)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M208 152 Q214 168 222 175" stroke="rgba(255,255,255,.5)" stroke-width="6" stroke-linecap="round"/>
+        <ellipse cx="164" cy="176" rx="9" ry="4" fill="rgba(255,255,255,.4)"/>
+        <ellipse cx="226" cy="176" rx="9" ry="4" fill="rgba(255,255,255,.4)"/>
+        <rect x="182" y="118" width="26" height="34" rx="10" fill="rgba(255,255,255,.35)"/>
+        <path d="M188 118 L195 126 L202 118" stroke="rgba(255,255,255,.5)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M182 124 Q164 132 154 138" stroke="rgba(255,255,255,.45)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M208 124 Q220 130 224 136" stroke="rgba(255,255,255,.45)" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="151" cy="139" r="5" fill="rgba(255,220,180,.7)"/>
+        <circle cx="226" cy="137" r="5" fill="rgba(255,220,180,.7)"/>
+        <circle cx="195" cy="105" r="18" fill="rgba(255,220,180,.8)"/>
+        <ellipse cx="195" cy="89" rx="22" ry="5" fill="rgba(255,255,255,.5)"/>
+        <rect x="181" y="72" width="28" height="18" rx="6" fill="rgba(255,255,255,.4)"/>
+        <circle cx="189" cy="106" r="2" fill="rgba(100,80,60,.4)"/>
+        <circle cx="201" cy="106" r="2" fill="rgba(100,80,60,.4)"/>
+        <path d="M190 113 Q195 117 200 113" stroke="rgba(100,80,60,.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <rect x="28" y="130" width="10" height="16" rx="3" fill="rgba(255,255,255,.2)"/>
+        <ellipse cx="33" cy="128" rx="10" ry="10" fill="rgba(100,220,120,.5)"/>
+        <ellipse cx="26" cy="124" rx="7" ry="7" fill="rgba(80,200,100,.45)"/>
+        <ellipse cx="40" cy="125" rx="7" ry="7" fill="rgba(80,200,100,.45)"/>
+        <rect x="230" y="132" width="18" height="14" rx="4" fill="rgba(255,255,255,.3)"/>
+        <path d="M248 137 Q254 137 254 142 Q254 147 248 147" stroke="rgba(255,255,255,.4)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M234 128 Q236 123 238 128" stroke="rgba(255,255,255,.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ PANNEAU DROIT ══ -->
+  <div class="right">
+
+    <div class="right-header">
+      <h1 class="right-title">Connexion</h1>
+
+      <div class="header-actions">
+
+        <!-- ══ TOGGLE MODE SOMBRE / CLAIR ══ -->
+        <label class="theme-toggle" title="Changer le thème" aria-label="Basculer mode sombre/clair">
+          <input type="checkbox" id="themeToggle"/>
+          <div class="track">
+            <div class="track-icons">
+              <span>☀️</span>
+              <span>🌙</span>
+            </div>
+            <div class="thumb"></div>
+          </div>
+        </label>
+
+        <!-- Langue -->
+        <button class="lang-select">
+          🌐 Français (FR)
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+
+      </div>
+    </div>
+
+    <p class="error-msg">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path stroke-linecap="round" d="M12 8v4m0 4h.01"/>
+      </svg>
+      {{ message }}
+    </p>
+
+    <div class="form-body">
+      <form method="POST" id="loginForm">
+
+        <div class="field">
+          <label class="field-label" for="username">Nom d'utilisateur</label>
+          <div class="input-wrapper">
+            <input type="text" id="username" name="username" placeholder="Entrez votre identifiant" required/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="pwd">Mot de passe</label>
+          <div class="input-wrapper">
+            <input type="password" id="pwd" name="password" placeholder="Entrez votre mot de passe" required/>
+            <button type="button" class="eye-btn" onclick="togglePwd('pwd')" aria-label="Afficher/masquer le mot de passe">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="options-row">
+          <div class="remember-check">
+            <input type="checkbox" id="remember" name="remember"/>
+            <label for="remember">Se souvenir de moi</label>
+          </div>
+          <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+        </div>
+
+        <button type="submit" class="btn-main">Se connecter</button>
+
+      </form>
+
+      <p class="footer-text">Pas encore de compte ? <a href="/register">S'inscrire</a></p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  /* ════════════════════════════════
+     AFFICHER / MASQUER MOT DE PASSE
+  ════════════════════════════════ */
+  function togglePwd(id) {
+    const inp = document.getElementById(id);
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  }
+
+  /* ════════════════════════════════
+     TOAST
+  ════════════════════════════════ */
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  /* ════════════════════════════════
+     THÈME SOMBRE / CLAIR
+  ════════════════════════════════ */
+  const LS_THEME  = 'app_theme';
+  const htmlEl    = document.documentElement;
+  const toggleEl  = document.getElementById('themeToggle');
+
+  function applyTheme(theme, notify = false) {
+    htmlEl.setAttribute('data-theme', theme);
+    toggleEl.checked = (theme === 'dark');
+    localStorage.setItem(LS_THEME, theme);
+    if (notify) {
+      showToast(theme === 'dark' ? '🌙 Mode sombre activé' : '☀️ Mode clair activé');
+    }
+  }
+
+  /* Applique le thème sauvegardé (ou la préférence système) avant le premier rendu */
+  (function () {
+    const saved = localStorage.getItem(LS_THEME);
+    if (saved) {
+      applyTheme(saved, false);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      applyTheme('dark', false);
+    }
+  })();
+
+  toggleEl.addEventListener('change', () => {
+    applyTheme(toggleEl.checked ? 'dark' : 'light', true);
+  });
+
+  /* ════════════════════════════════
+     REMEMBER ME
+  ════════════════════════════════ */
+  const LS_USER = 'remember_username';
+  const LS_PASS = 'remember_password';
+  const LS_FLAG = 'remember_me';
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+    /* Message d'erreur Flask */
+    const err = document.querySelector('.error-msg');
+    const txt = err.textContent.trim();
+    if (txt && txt !== '{{ message }}') err.style.display = 'flex';
+
+    /* Pré-remplissage */
+    if (localStorage.getItem(LS_FLAG) === 'true') {
+      const savedUser = localStorage.getItem(LS_USER) || '';
+      const savedPass = localStorage.getItem(LS_PASS) || '';
+      if (savedUser || savedPass) {
+        document.getElementById('username').value   = savedUser;
+        document.getElementById('pwd').value        = savedPass;
+        document.getElementById('remember').checked = true;
+        showToast('🔑 Identifiants restaurés automatiquement');
+      }
+    }
+
+    /* Sauvegarde à la soumission */
+    document.getElementById('loginForm').addEventListener('submit', () => {
+      const isChecked = document.getElementById('remember').checked;
+      const username  = document.getElementById('username').value.trim();
+      const password  = document.getElementById('pwd').value;
+      if (isChecked) {
+        localStorage.setItem(LS_FLAG, 'true');
+        localStorage.setItem(LS_USER, username);
+        localStorage.setItem(LS_PASS, password);
+      } else {
+        localStorage.removeItem(LS_FLAG);
+        localStorage.removeItem(LS_USER);
+        localStorage.removeItem(LS_PASS);
+      }
+    });
+
+    /* Décochage immédiat */
+    document.getElementById('remember').addEventListener('change', function () {
+      if (!this.checked) {
+        localStorage.removeItem(LS_FLAG);
+        localStorage.removeItem(LS_USER);
+        localStorage.removeItem(LS_PASS);
+      }
+    });
+
+  });
+</script>
+</body>
+</html>

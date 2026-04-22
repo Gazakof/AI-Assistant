@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assistant IA Étudiant</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --bg:          #f1f4fc;
+      --bg2:         #e8edf9;
+      --surface:     rgba(255,255,255,.76);
+      --surface-s:   #ffffff;
+      --text:        #0d1526;
+      --muted:       #5a6a85;
+      --muted2:      #9aa5bb;
+      --line:        rgba(130,148,190,.16);
+
+      --accent:      #5046e4;
+      --accent2:     #7c6ffd;
+      --accent3:     #a78bfa;
+      --accent-soft: rgba(80,70,228,.09);
+      --accent-glow: rgba(80,70,228,.22);
+
+      --ok:          #059669;
+      --err:         #dc2626;
+
+      --sh:          0 20px 60px rgba(13,21,38,.08);
+      --sh-s:        0 8px 24px rgba(13,21,38,.05);
+      --sh-a:        0 16px 40px rgba(80,70,228,.22);
+
+      --r-xl: 28px;
+      --r-lg: 22px;
+      --r-md: 16px;
+      --r-sm: 12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+      transition: background .3s, color .3s;
+    }
+
+    /* ── Mesh background ── */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 60% 50% at 8%   8%,  rgba(80,70,228,.11)  0%, transparent 55%),
+        radial-gradient(ellipse 45% 40% at 92%  12%, rgba(167,139,250,.10) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(99,102,241,.09)  0%, transparent 50%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%);
+    }
+
+    /* subtle dot grid */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background-image: radial-gradient(circle, rgba(80,70,228,.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+
+    /* ══════════ NAVBAR ══════════ */
+    .navbar {
+      position: sticky; top: 0; z-index: 50;
+      height: 72px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 20px;
+      background: rgba(241,244,252,.72);
+      backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid rgba(130,148,190,.12);
+    }
+
+    .navbar-inner {
+      width: min(1200px, 100%);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 13px; }
+
+    .brand-icon {
+      width: 44px; height: 44px;
+      border-radius: 16px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent2) 60%, var(--accent3));
+      color: #fff;
+      font-family: 'Sora', sans-serif;
+      font-weight: 800; font-size: 17px;
+      box-shadow: var(--sh-a);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-icon::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.25) 0%, transparent 60%);
+    }
+
+    .brand-name {
+      font-family: 'Sora', sans-serif;
+      font-size: 17px; font-weight: 800;
+      letter-spacing: -.4px;
+    }
+
+    .brand-sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+
+    .nav-pill {
+      display: flex; align-items: center; gap: 9px;
+      padding: 6px 14px 6px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.80);
+      border: 1px solid rgba(130,148,190,.14);
+      box-shadow: var(--sh-s);
+    }
+
+    .nav-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--accent-soft); color: var(--accent);
+      display: grid; place-items: center; font-size: 13px;
+    }
+
+    .nav-username { font-size: 13px; font-weight: 700; }
+
+    .icon-btn, .nav-link {
+      border: none; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border-radius: 999px;
+      transition: transform .18s, background .18s, box-shadow .18s;
+      user-select: none;
+    }
+
+    .icon-btn {
+      width: 40px; height: 40px;
+      background: rgba(80,70,228,.08); color: var(--accent);
+      font-size: 16px;
+    }
+
+    .icon-btn:hover { transform: translateY(-1px); background: rgba(80,70,228,.14); }
+
+    .nav-link {
+      padding: 9px 16px;
+      background: rgba(255,255,255,.88); color: var(--accent);
+      border: 1px solid rgba(80,70,228,.14);
+      font-weight: 700; font-size: 13px;
+      box-shadow: var(--sh-s);
+    }
+
+    .nav-link:hover {
+      transform: translateY(-1px);
+      background: var(--accent-soft);
+      box-shadow: 0 12px 28px rgba(80,70,228,.12);
+    }
+
+    /* ══════════ PAGE ══════════ */
+    .page {
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    /* ══════════ HERO ══════════ */
+    .hero {
+      text-align: center;
+      max-width: 820px;
+      margin: 12px auto 32px;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 15px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(80,70,228,.16);
+      color: var(--accent);
+      font-size: 11.5px; font-weight: 700; letter-spacing: .4px;
+      text-transform: uppercase;
+    }
+
+    .badge-pulse {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2.2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(80,70,228,.5); }
+      50%       { box-shadow: 0 0 0 7px rgba(80,70,228,0); }
+    }
+
+    .hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(28px, 4vw, 50px);
+      line-height: 1.05;
+      margin: 16px 0 14px;
+      letter-spacing: -1.4px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text) 40%, var(--accent2));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 15px; line-height: 1.8; color: var(--muted);
+      max-width: 680px; margin: 0 auto;
+    }
+
+    /* ══════════ LAYOUT ══════════ */
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 22px; align-items: start;
+    }
+
+    /* ══════════ CARDS ══════════ */
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.60);
+      backdrop-filter: blur(20px) saturate(160%);
+      border-radius: var(--r-xl);
+      box-shadow: var(--sh);
+    }
+
+    .form-card {
+      padding: 28px;
+      overflow: hidden; position: relative;
+    }
+
+    .form-card::before {
+      content: "";
+      position: absolute; inset: -1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg,
+        rgba(80,70,228,.10) 0%,
+        transparent 30%,
+        transparent 70%,
+        rgba(124,92,251,.08) 100%);
+      pointer-events: none;
+    }
+
+    .form-inner { position: relative; z-index: 1; }
+
+    /* ══════════ SECTION HEADER ══════════ */
+    .section-tag {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .section-tag-icon {
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      background: var(--accent-soft); color: var(--accent);
+      display: grid; place-items: center; font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .section-tag-text {
+      font-family: 'Sora', sans-serif;
+      font-size: 15px; font-weight: 700; letter-spacing: -.2px;
+    }
+
+    /* ══════════ FORM ELEMENTS ══════════ */
+    .field-label {
+      display: block;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .7px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .textarea-wrap { position: relative; margin-bottom: 18px; }
+
+    textarea {
+      width: 100%; min-height: 172px; resize: vertical;
+      border: 1.5px solid rgba(130,148,190,.20);
+      border-radius: 20px;
+      background: rgba(255,255,255,.80); color: var(--text);
+      padding: 16px 16px 40px;
+      outline: none;
+      font-size: 14px; line-height: 1.75;
+      transition: border-color .22s, box-shadow .22s, background .22s;
+      box-shadow: var(--sh-s);
+    }
+
+    textarea::placeholder { color: var(--muted2); }
+
+    textarea:focus {
+      border-color: rgba(80,70,228,.45);
+      box-shadow: 0 0 0 4px rgba(80,70,228,.10);
+      background: #fff;
+    }
+
+    .char-count {
+      position: absolute; right: 12px; bottom: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10.5px; color: var(--muted2);
+      background: rgba(255,255,255,.88);
+      padding: 3px 9px; border-radius: 999px;
+      border: 1px solid rgba(130,148,190,.12);
+    }
+
+    /* ── Upload ── */
+    .upload-box {
+      border: 1.5px dashed rgba(80,70,228,.24);
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(80,70,228,.05), rgba(80,70,228,.02));
+      padding: 16px;
+      margin-bottom: 18px;
+      cursor: pointer;
+      transition: border-color .22s, background .22s, box-shadow .22s, transform .22s;
+    }
+
+    .upload-box:hover {
+      border-color: rgba(80,70,228,.50);
+      background: linear-gradient(180deg, rgba(80,70,228,.08), rgba(80,70,228,.03));
+      box-shadow: 0 12px 32px rgba(80,70,228,.10);
+      transform: translateY(-1px);
+    }
+
+    .upload-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+    .upload-main { display: flex; align-items: center; gap: 14px; }
+
+    .upload-icon {
+      width: 48px; height: 48px; border-radius: 16px;
+      background: #fff; color: var(--accent);
+      display: grid; place-items: center;
+      box-shadow: 0 8px 20px rgba(13,21,38,.07);
+      font-size: 19px; flex-shrink: 0;
+    }
+
+    .upload-text strong { display: block; font-size: 13.5px; font-weight: 700; margin-bottom: 3px; }
+    .upload-text span   { font-size: 12px; color: var(--muted); }
+
+    .hidden-input { display: none; }
+
+    .upload-btn {
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(80,70,228,.18);
+      color: var(--accent);
+      font-weight: 700; font-size: 13px;
+      cursor: pointer;
+      transition: background .18s;
+    }
+
+    .upload-btn:hover { background: rgba(80,70,228,.15); }
+
+    .file-name {
+      margin-top: 10px; font-size: 12px;
+      color: var(--accent2); font-weight: 700; word-break: break-word;
+    }
+
+    /* ── Feature chips ── */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 10px; margin-bottom: 18px;
+    }
+
+    .feat-chip {
+      display: flex; align-items: center; gap: 11px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1.5px solid rgba(130,148,190,.18);
+      background: rgba(255,255,255,.70);
+      cursor: pointer;
+      transition: border-color .18s, background .18s, box-shadow .18s, transform .18s;
+    }
+
+    .feat-chip:hover {
+      border-color: rgba(80,70,228,.30);
+      background: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(13,21,38,.05);
+    }
+
+    .feat-chip:has(input:checked) {
+      border-color: rgba(80,70,228,.55);
+      background: linear-gradient(145deg, rgba(80,70,228,.10), rgba(80,70,228,.05));
+      box-shadow: 0 0 0 4px rgba(80,70,228,.09);
+    }
+
+    .feat-chip input[type="checkbox"] {
+      width: 17px; height: 17px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .chip-emoji { font-size: 17px; line-height: 1; }
+    .chip-label { font-size: 13px; font-weight: 700; }
+
+    /* ── Input field ── */
+    .field-wrap { position: relative; margin-bottom: 18px; }
+
+    .field-icon {
+      position: absolute; left: 13px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted2);
+      pointer-events: none;
+      transition: color .2s;
+    }
+
+    .field-wrap:focus-within .field-icon { color: var(--accent); }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 13px 15px 13px 42px;
+      border-radius: 16px;
+      border: 1.5px solid rgba(130,148,190,.20);
+      background: rgba(255,255,255,.80); color: var(--text);
+      outline: none; font-size: 14px;
+      transition: border-color .22s, box-shadow .22s, background .22s;
+      box-shadow: var(--sh-s);
+    }
+
+    input[type="text"]::placeholder { color: var(--muted2); }
+
+    input[type="text"]:focus {
+      border-color: rgba(80,70,228,.45);
+      box-shadow: 0 0 0 4px rgba(80,70,228,.10);
+      background: #fff;
+    }
+
+    /* ── Buttons ── */
+    .actions { display: grid; gap: 10px; }
+
+    .btn-primary, .btn-secondary {
+      width: 100%; padding: 14px;
+      border: none; border-radius: 999px;
+      cursor: pointer; font-weight: 700; font-size: 14px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: transform .18s, box-shadow .18s, opacity .18s;
+      position: relative; overflow: hidden;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 60%, var(--accent3) 100%);
+      box-shadow: 0 14px 32px rgba(80,70,228,.30);
+    }
+
+    .btn-primary::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.18) 0%, transparent 55%);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(80,70,228,.38); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-primary.loading { pointer-events: none; opacity: .8; }
+
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2.5px solid rgba(255,255,255,.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      display: none;
+      animation: spin .7s linear infinite;
+    }
+
+    .btn-primary.loading .spinner { display: block; }
+    .btn-primary.loading .btn-icon { display: none; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .btn-secondary {
+      background: rgba(255,255,255,.88); color: var(--accent);
+      border: 1.5px solid rgba(80,70,228,.18);
+      box-shadow: var(--sh-s);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+      background: var(--accent-soft);
+      box-shadow: 0 12px 28px rgba(80,70,228,.12);
+    }
+
+    /* ══════════ SIDEBAR ══════════ */
+    .side-stack { display: grid; gap: 18px; }
+
+    .side-card {
+      padding: 22px; position: relative; overflow: hidden;
+    }
+
+    .side-card-glow {
+      position: absolute;
+      right: -32px; top: -32px;
+      width: 120px; height: 120px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(80,70,228,.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .side-card-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 16px; font-weight: 800; letter-spacing: -.2px;
+      margin-bottom: 8px; position: relative; z-index: 1;
+    }
+
+    .side-card-body {
+      font-size: 13px; line-height: 1.80; color: var(--muted);
+      margin-bottom: 16px; position: relative; z-index: 1;
+    }
+
+    .mini-list { display: grid; gap: 10px; position: relative; z-index: 1; }
+
+    .mini-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 14px; border-radius: 16px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(130,148,190,.14);
+      transition: transform .2s, background .2s, border-color .2s, box-shadow .2s;
+    }
+
+    .mini-item:hover {
+      transform: translateX(6px);
+      background: rgba(80,70,228,.06);
+      border-color: rgba(80,70,228,.28);
+      box-shadow: 0 6px 20px rgba(80,70,228,.08);
+    }
+
+    .mini-emoji {
+      width: 34px; height: 34px; border-radius: 12px;
+      background: var(--accent-soft); color: var(--accent);
+      display: grid; place-items: center; font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .mini-item strong { display: block; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .mini-item span   { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    /* steps */
+    .steps { display: grid; gap: 12px; position: relative; z-index: 1; }
+    .step { display: flex; align-items: center; gap: 12px; }
+
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; font-family: 'Sora', sans-serif;
+      font-size: 12px; font-weight: 800;
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+
+    .step p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .step p strong { color: var(--text); font-weight: 700; }
+
+    /* ══════════ RESULTS ══════════ */
+    .results-wrap { margin-top: 24px; }
+
+    .results-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .results-header h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 17px; font-weight: 800; letter-spacing: -.3px;
+    }
+
+    .results-count {
+      padding: 4px 10px; border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(80,70,228,.16);
+      color: var(--accent);
+      font-size: 12px; font-weight: 700;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px; align-items: start;
+    }
+
+    .result-card {
+      padding: 22px;
+      overflow: hidden; position: relative;
+      border-top: 3px solid var(--accent);
+    }
+
+    .result-card-glow {
+      position: absolute;
+      right: -40px; top: -40px;
+      width: 130px; height: 130px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(80,70,228,.10) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    .result-card-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px; position: relative; z-index: 1;
+    }
+
+    .rc-icon {
+      width: 42px; height: 42px; border-radius: 14px;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: 18px; display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+
+    .rc-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 17px; font-weight: 800; letter-spacing: -.2px;
+    }
+
+    .result-body {
+      color: var(--muted); font-size: 14px;
+      line-height: 1.85; white-space: pre-wrap;
+      position: relative; z-index: 1;
+    }
+
+    /* ── QCM ── */
+    .qcm-card { border-top-color: var(--accent); }
+
+    .qcm-item {
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(130,148,190,.12);
+    }
+
+    .qcm-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .qcm-question {
+      font-size: 14px; font-weight: 700; color: var(--text);
+      margin-bottom: 10px; line-height: 1.6;
+    }
+
+    .qcm-options { list-style: none; display: grid; gap: 7px; }
+
+    .qcm-choice {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; border-radius: 13px;
+      border: 1px solid rgba(130,148,190,.16);
+      background: rgba(255,255,255,.68);
+      cursor: pointer;
+      transition: border-color .18s, background .18s, transform .18s;
+    }
+
+    .qcm-choice:hover {
+      transform: translateY(-1px);
+      border-color: rgba(80,70,228,.26);
+      background: rgba(80,70,228,.05);
+    }
+
+    .qcm-choice input { margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+
+    .qcm-choice-text { font-size: 13px; line-height: 1.55; color: var(--muted); font-weight: 500; }
+
+    .qcm-choice.correct {
+      border-color: rgba(5,150,105,.65);
+      background: rgba(5,150,105,.12);
+      box-shadow: 0 0 0 3px rgba(5,150,105,.08);
+    }
+
+    .qcm-choice.wrong {
+      border-color: rgba(220,38,38,.60);
+      background: rgba(220,38,38,.10);
+      box-shadow: 0 0 0 3px rgba(220,38,38,.06);
+    }
+
+    #qcmScore {
+      margin-top: 14px;
+      padding: 12px 16px; border-radius: 14px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(80,70,228,.18);
+      font-family: 'DM Mono', monospace;
+      font-size: 14px; font-weight: 500;
+    }
+
+    /* ── Chat ── */
+    .chat-card { border-top-color: var(--ok); }
+    .chat-card .rc-icon { background: rgba(5,150,105,.10); color: var(--ok); }
+    .chat-card .rc-title { color: var(--ok); }
+
+    .chat-answer {
+      position: relative; padding: 20px 20px 20px 28px;
+      border-radius: 18px;
+      border: 1px solid rgba(5,150,105,.16);
+      background: linear-gradient(180deg, rgba(5,150,105,.07), rgba(5,150,105,.03));
+      font-size: 14.5px; line-height: 1.85; white-space: pre-wrap;
+      overflow: hidden; z-index: 1; position: relative;
+    }
+
+    .chat-answer::before {
+      content: "";
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--ok), rgba(5,150,105,.3));
+      border-radius: 4px 0 0 4px;
+    }
+
+    /* ── Recommend ── */
+    .recommend-card { border-top-color: #f59e0b; }
+    .recommend-card .rc-icon { background: rgba(245,158,11,.10); color: #d97706; }
+    .recommend-card .rc-title { color: #92400e; }
+
+    body.dark .recommend-card .rc-title { color: #fcd34d; }
+
+    .rec-list { display: grid; gap: 10px; position: relative; z-index: 1; }
+
+    .rec-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 13px 15px; border-radius: 16px;
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(130,148,190,.14);
+      transition: transform .2s, background .2s, border-color .2s;
+    }
+
+    .rec-item:hover {
+      transform: translateX(4px);
+      background: rgba(245,158,11,.06);
+      border-color: rgba(245,158,11,.30);
+    }
+
+    .rec-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #f59e0b; margin-top: 6px; flex-shrink: 0;
+    }
+
+    .rec-text { font-size: 14px; line-height: 1.65; color: var(--text); }
+
+    /* ══════════ EMPTY STATE ══════════ */
+    .empty-state {
+      padding: 52px 20px; text-align: center;
+    }
+
+    .empty-icon {
+      font-size: 54px; display: inline-block;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 12px 28px rgba(80,70,228,.18));
+      animation: float 3.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .empty-state h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 18px; font-weight: 800;
+      margin-bottom: 8px; letter-spacing: -.3px;
+    }
+
+    .empty-state p { font-size: 14px; color: var(--muted); line-height: 1.8; }
+
+    /* ══════════ DARK MODE ══════════ */
+    body.dark {
+      --bg:          #080d1e;
+      --bg2:         #0c1228;
+      --surface:     rgba(14,20,40,.76);
+      --surface-s:   #0f1830;
+      --text:        #eef0f7;
+      --muted:       #8892aa;
+      --muted2:      #5a647a;
+      --accent-soft: rgba(80,70,228,.16);
+      --accent-glow: rgba(80,70,228,.30);
+      --sh:          0 20px 60px rgba(0,0,0,.36);
+      --sh-s:        0 8px 24px rgba(0,0,0,.24);
+    }
+
+    body.dark .navbar {
+      background: rgba(8,13,30,.80);
+      border-bottom-color: rgba(255,255,255,.06);
+    }
+
+    body.dark .nav-pill,
+    body.dark .nav-link { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.08); }
+
+    body.dark textarea,
+    body.dark input[type="text"] { background: rgba(14,20,40,.90); color: var(--text); }
+
+    body.dark textarea:focus,
+    body.dark input[type="text"]:focus { background: rgba(14,20,40,1); }
+
+    body.dark textarea::placeholder,
+    body.dark input[type="text"]::placeholder { color: var(--muted2); }
+
+    body.dark .feat-chip,
+    body.dark .mini-item,
+    body.dark .qcm-choice,
+    body.dark .rec-item { background: rgba(14,20,40,.90); }
+
+    body.dark .btn-secondary { background: rgba(255,255,255,.06); }
+
+    body.dark .char-count { background: rgba(14,20,40,.90); border-color: rgba(255,255,255,.07); }
+
+    body.dark .upload-icon { background: rgba(14,20,40,.95); }
+
+    body.dark .qcm-choice.correct { background: rgba(5,150,105,.14); }
+    body.dark .qcm-choice.wrong   { background: rgba(220,38,38,.12); }
+
+    body.dark .chat-answer { background: linear-gradient(180deg, rgba(5,150,105,.10), rgba(5,150,105,.04)); }
+
+    body.dark .rec-item:hover { background: rgba(245,158,11,.08); }
+
+    body.dark .hero h1 {
+      background: linear-gradient(135deg, #eef0f7 40%, var(--accent3));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ══════════ ANIMATIONS ══════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in { animation: fadeUp .50s cubic-bezier(.22,.68,0,1.2) both; }
+    .animate-in:nth-child(2) { animation-delay: .06s; }
+    .animate-in:nth-child(3) { animation-delay: .12s; }
+
+    /* ══════════ RESPONSIVE ══════════ */
+    @media (max-width: 980px) {
+      .grid-layout { grid-template-columns: 1fr; }
+      .side-stack  { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .navbar        { height: auto; padding: 12px 16px; }
+      .navbar-inner  { flex-direction: column; align-items: stretch; }
+      .nav-right     { width: 100%; justify-content: space-between; }
+      .nav-pill      { flex: 1; }
+      .hero          { text-align: left; }
+      .hero p        { margin: 0; }
+      .features-grid { grid-template-columns: 1fr; }
+      .side-stack    { grid-template-columns: 1fr; }
+      .results-grid  { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .page { padding: 16px 14px 48px; }
+      .hero h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════ NAVBAR ══════ -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="brand">
+        <div class="brand-icon">✳</div>
+        <div>
+          <div class="brand-name">Mon Espace</div>
+          <div class="brand-sub">Organisez · Apprenez · Progressez</div>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <div class="nav-pill">
+          <div class="nav-avatar">👤</div>
+          <span class="nav-username">{{ user.username }}</span>
+        </div>
+
+        <button onclick="toggleTheme()" class="icon-btn" type="button" aria-label="Thème" id="themeBtn">🌙</button>
+
+        <a href="/dashboard" class="nav-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </a>
+
+        <a href="/logout" class="nav-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+          </svg>
+          Déconnexion
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════ PAGE ══════ -->
+  <div class="page">
+
+    <!-- Hero -->
+    <section class="hero animate-in">
+      <div class="badge"><span class="badge-pulse"></span>Propulsé par l'IA</div>
+      <h1>Assistant Intelligent Étudiant</h1>
+      <p>Collez votre cours ou importez un PDF — obtenez en quelques secondes un résumé, des QCM interactifs, des points clés et des réponses personnalisées.</p>
+    </section>
+
+    <div class="grid-layout">
+
+      <!-- ══ FORM CARD ══ -->
+      <section class="form-card card animate-in">
+        <div class="form-inner">
+          <form method="POST" enctype="multipart/form-data" id="mainForm">
+
+            <!-- Textarea -->
+            <div class="section-tag">
+              <div class="section-tag-icon">✏️</div>
+              <span class="section-tag-text">Contenu du cours</span>
+            </div>
+
+            <div class="textarea-wrap">
+              <label class="field-label" for="text">Texte à analyser</label>
+              <textarea id="text" name="text" placeholder="Collez votre cours ici…"></textarea>
+              <span class="char-count" id="charCount">0 car.</span>
+            </div>
+
+            <!-- Upload -->
+            <div class="upload-box" onclick="document.getElementById('pdfInput').click()">
+              <label class="field-label">Importer un fichier PDF</label>
+              <div class="upload-row">
+                <div class="upload-main">
+                  <div class="upload-icon">📄</div>
+                  <div class="upload-text">
+                    <strong>Cliquer pour choisir un PDF</strong>
+                    <span>Taille maximale : 16 MB</span>
+                  </div>
+                </div>
+                <span class="upload-btn">Parcourir</span>
+              </div>
+              <input type="file" name="pdf" accept="application/pdf" id="pdfInput" class="hidden-input">
+              <p id="fileName" class="file-name"></p>
+            </div>
+
+            <!-- Features -->
+            <div class="section-tag" style="margin-bottom:12px;">
+              <div class="section-tag-icon">🛠️</div>
+              <span class="section-tag-text">Choisir les outils</span>
+            </div>
+
+            <div class="features-grid">
+              <label class="feat-chip">
+                <input type="checkbox" name="features" value="summary">
+                <span class="chip-emoji">📄</span>
+                <span class="chip-label">Résumé</span>
+              </label>
+              <label class="feat-chip">
+                <input type="checkbox" name="features" value="qcm">
+                <span class="chip-emoji">❓</span>
+                <span class="chip-label">QCM</span>
+              </label>
+              <label class="feat-chip">
+                <input type="checkbox" name="features" value="chatbot">
+                <span class="chip-emoji">💬</span>
+                <span class="chip-label">Chatbot</span>
+              </label>
+              <label class="feat-chip">
+                <input type="checkbox" name="features" value="recommend">
+                <span class="chip-emoji">📌</span>
+                <span class="chip-label">Points clés</span>
+              </label>
+            </div>
+
+            <!-- Question -->
+            <label class="field-label" for="question">Question pour le chatbot</label>
+            <div class="field-wrap">
+              <span class="field-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+              </span>
+              <input type="text" id="question" name="question" placeholder="Pose une question au chatbot…">
+            </div>
+
+            <!-- Actions -->
+            <div class="actions">
+              <button type="submit" class="btn-primary" id="submitBtn">
+                <span class="spinner"></span>
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                Analyser maintenant
+              </button>
+
+              <button type="button" class="btn-secondary" onclick="window.location.href='/'">
+                🔄 Réinitialiser
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </section>
+
+      <!-- ══ SIDEBAR ══ -->
+      <aside class="side-stack animate-in">
+
+        <div class="side-card card">
+          <div class="side-card-glow"></div>
+          <div class="section-tag" style="margin-bottom:12px;">
+            <div class="section-tag-icon">✨</div>
+            <span class="section-tag-text">Votre espace intelligent</span>
+          </div>
+          <p class="side-card-body">
+            Une interface pensée pour la clarté, la rapidité et la concentration.
+            Design sobre, élégant, adapté à tous les écrans.
+          </p>
+          <div class="mini-list">
+            <div class="mini-item">
+              <div class="mini-emoji">📄</div>
+              <div>
+                <strong>Résumé visuel</strong>
+                <span>Lecture plus fluide, meilleure rétention.</span>
+              </div>
+            </div>
+            <div class="mini-item">
+              <div class="mini-emoji">🧠</div>
+              <div>
+                <strong>Révision active</strong>
+                <span>Des QCM pour tester vos connaissances.</span>
+              </div>
+            </div>
+            <div class="mini-item">
+              <div class="mini-emoji">📌</div>
+              <div>
+                <strong>Points clés</strong>
+                <span>L'essentiel mis en premier plan.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-card card">
+          <div class="side-card-glow"></div>
+          <div class="section-tag" style="margin-bottom:12px;">
+            <div class="section-tag-icon">🚀</div>
+            <span class="section-tag-text">Comment ça marche ?</span>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <p><strong>Collez ou importez</strong> votre cours ou document PDF.</p>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <p><strong>Sélectionnez</strong> les outils souhaités (résumé, QCM…).</p>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <p><strong>Analysez</strong> et obtenez vos résultats instantanément.</p>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+
+    <!-- ══ RESULTS ══ -->
+    <div class="results-wrap">
+      {% if result.summary or result.qcm or result.recommend or result.chat %}
+
+      <div class="results-header animate-in">
+        <h2>Résultats de l'analyse</h2>
+        <span class="results-count">
+          {% set _count = 0 %}
+          {% if result.summary %}{% set _count = _count + 1 %}{% endif %}
+          {% if result.qcm %}{% set _count = _count + 1 %}{% endif %}
+          {% if result.recommend %}{% set _count = _count + 1 %}{% endif %}
+          {% if result.chat %}{% set _count = _count + 1 %}{% endif %}
+          {{ _count }} résultat(s)
+        </span>
+      </div>
+
+      <div class="results-grid">
+
+        {% if result.summary %}
+        <div class="result-card card animate-in">
+          <div class="result-card-glow"></div>
+          <div class="result-card-head">
+            <div class="rc-icon">📄</div>
+            <span class="rc-title">Résumé</span>
+          </div>
+          <p class="result-body">{{ result.summary }}</p>
+        </div>
+        {% endif %}
+
+        {% if result.qcm %}
+        <div class="result-card card qcm-card animate-in">
+          <div class="result-card-glow"></div>
+          <div class="result-card-head">
+            <div class="rc-icon">❓</div>
+            <span class="rc-title">QCM interactif</span>
+          </div>
+
+          <div id="qcmContainer">
+            {% for q in result.qcm %}
+            {% set qi = loop.index %}
+            <div class="qcm-item" data-correct="{{ q.answer | e }}">
+              <div class="qcm-question">{{ qi }}. {{ q.question }}</div>
+              <div class="qcm-options">
+                {% for opt in q.options %}
+                <label class="qcm-choice">
+                  <input type="radio" name="qcm-{{ qi }}" value="{{ opt | e }}">
+                  <span class="qcm-choice-text">{{ opt }}</span>
+                </label>
+                {% endfor %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <button type="button" class="btn-primary" style="margin-top:16px; width:100%;" onclick="corrigerQCM()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Vérifier les réponses
+          </button>
+          <div id="qcmScore"></div>
+        </div>
+        {% endif %}
+
+        {% if result.recommend %}
+        <div class="result-card card recommend-card animate-in">
+          <div class="result-card-glow" style="background:radial-gradient(circle,rgba(245,158,11,.10),transparent 70%)"></div>
+          <div class="result-card-head">
+            <div class="rc-icon">💡</div>
+            <span class="rc-title">Points clés à retenir</span>
+          </div>
+          <div class="rec-list">
+            {% for rec in result.recommend %}
+            <div class="rec-item">
+              <div class="rec-dot"></div>
+              <span class="rec-text">{{ rec }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        {% if result.chat %}
+        <div class="result-card card chat-card animate-in">
+          <div class="result-card-glow" style="background:radial-gradient(circle,rgba(5,150,105,.10),transparent 70%)"></div>
+          <div class="result-card-head">
+            <div class="rc-icon">💬</div>
+            <span class="rc-title">Réponse de l'IA</span>
+          </div>
+          <div class="chat-answer">{{ result.chat }}</div>
+        </div>
+        {% endif %}
+
+      </div>
+
+      {% else %}
+      <div class="empty-state card animate-in">
+        <span class="empty-icon">🚀</span>
+        <h3>Prêt à booster votre apprentissage ?</h3>
+        <p>Collez votre texte ou importez un PDF<br>et sélectionnez les outils souhaités pour commencer.</p>
+      </div>
+      {% endif %}
+    </div>
+
+  </div><!-- /page -->
+
+  <script>
+    // ── Char count ──
+    const ta = document.getElementById('text');
+    const cc = document.getElementById('charCount');
+    function updateCount() {
+      if (ta && cc) cc.textContent = ta.value.length.toLocaleString('fr') + ' car.';
+    }
+    ta?.addEventListener('input', updateCount);
+    updateCount();
+
+    // ── PDF name ──
+    const pdfInput = document.getElementById('pdfInput');
+    const fileNameEl = document.getElementById('fileName');
+    pdfInput?.addEventListener('change', function() {
+      fileNameEl.textContent = this.files?.[0] ? '📄 ' + this.files[0].name : '';
+    });
+
+    // ── Theme ──
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') { document.body.classList.add('dark'); setIcon(true); }
+      else setIcon(false);
+    });
+
+    function toggleTheme() {
+      const dark = document.body.classList.toggle('dark');
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+      setIcon(dark);
+    }
+
+    function setIcon(dark) {
+      const btn = document.getElementById('themeBtn');
+      if (btn) btn.textContent = dark ? '☀️' : '🌙';
+    }
+
+    // ── Loading state on submit ──
+    document.getElementById('mainForm')?.addEventListener('submit', () => {
+      const btn = document.getElementById('submitBtn');
+      if (btn) {
+        btn.classList.add('loading');
+        btn.querySelector('span:not(.spinner)') && (btn.querySelector('span:not(.spinner)').textContent = 'Analyse en cours…');
+      }
+    });
+
+    // ── QCM correction ──
+    function corrigerQCM() {
+      const items = document.querySelectorAll('.qcm-item');
+      let score = 0;
+
+      items.forEach((item, i) => {
+        const correct  = item.getAttribute('data-correct');
+        const selected = item.querySelector(`input[name="qcm-${i + 1}"]:checked`);
+        const choices  = item.querySelectorAll('.qcm-choice');
+
+        choices.forEach(c => c.classList.remove('correct', 'wrong'));
+
+        if (selected?.value === correct) {
+          score++;
+          selected.closest('.qcm-choice').classList.add('correct');
+        } else {
+          if (selected) selected.closest('.qcm-choice').classList.add('wrong');
+          choices.forEach(c => {
+            if (c.querySelector('input')?.value === correct) c.classList.add('correct');
+          });
+        }
+      });
+
+      const box = document.getElementById('qcmScore');
+      if (box) {
+        const pct = Math.round(score / items.length * 100);
+        box.textContent = `Score : ${score} / ${items.length}  (${pct}%)`;
+        box.style.borderColor = pct >= 70
+          ? 'rgba(5,150,105,.30)'
+          : pct >= 40 ? 'rgba(245,158,11,.30)' : 'rgba(220,38,38,.30)';
+      }
+    }
+  </script>
+</body>
+</html>

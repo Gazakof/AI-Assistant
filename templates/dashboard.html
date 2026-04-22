@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Analytics SaaS v3</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!--
+  ╔══════════════════════════════════════════════╗
+  ║  SYNC THÈME — clé partagée : "app_theme"    ║
+  ║  Même clé que login / register / index       ║
+  ╚══════════════════════════════════════════════╝
+-->
+<script>
+  (function () {
+    const saved = localStorage.getItem('app_theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+</script>
+
+<style>
+/* ══ THÈME CLAIR ══ */
+:root {
+  --bg:      #f6f7ff;
+  --bg2:     #eef0fc;
+  --surface: rgba(255,255,255,.80);
+  --text:    #0f172a;
+  --muted:   #64748b;
+  --line:    rgba(148,163,184,.18);
+  --primary: #7c3aed;
+  --pri-soft:rgba(124,58,237,.10);
+  --shadow:  0 18px 60px rgba(0,0,0,.08);
+  --radius:  22px;
+}
+
+/* ══ THÈME SOMBRE ══ */
+[data-theme="dark"] {
+  --bg:      #0b1020;
+  --bg2:     #0e1428;
+  --surface: rgba(17,24,39,.80);
+  --text:    #f1f5f9;
+  --muted:   #94a3b8;
+  --line:    rgba(148,163,184,.10);
+  --pri-soft:rgba(124,58,237,.18);
+  --shadow:  0 18px 60px rgba(0,0,0,.40);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; font-family: Inter, sans-serif; }
+
+html, body { min-height: 100vh; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background .35s ease, color .35s ease;
+}
+
+/* mesh bg */
+body::before {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: -1;
+  background:
+    radial-gradient(ellipse 55% 45% at 5%  5%,  rgba(124,58,237,.09) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 95% 10%, rgba(167,139,250,.08) 0%, transparent 50%),
+    linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%);
+}
+
+/* ══ NAV ══ */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 28px;
+  backdrop-filter: blur(24px) saturate(180%);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 50;
+  transition: background .35s ease, border-color .35s ease;
+}
+
+.nav-brand { display: flex; align-items: center; gap: 10px; }
+
+.nav-brand-icon {
+  width: 38px; height: 38px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), #a78bfa);
+  display: grid; place-items: center; font-size: 16px;
+  box-shadow: 0 8px 20px rgba(124,58,237,.28);
+}
+
+.nav-brand-text {
+  font-size: 15px; font-weight: 800; letter-spacing: -.3px;
+}
+
+.nav-brand-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+.nav-right { display: flex; align-items: center; gap: 10px; }
+
+/* ── Toggle thème ── */
+.theme-toggle {
+  position: relative; width: 52px; height: 28px;
+  flex-shrink: 0; cursor: pointer;
+}
+.theme-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+
+.track {
+  position: absolute; inset: 0; border-radius: 50px;
+  background: var(--pri-soft);
+  border: 1.5px solid var(--line);
+  transition: background .35s ease, border-color .35s ease;
+  display: flex; align-items: center; padding: 0 4px;
+}
+
+.thumb {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 2px 8px rgba(124,58,237,.40);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; line-height: 1;
+}
+[data-theme="dark"] .thumb { transform: translateX(24px); }
+
+.track-icons {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5px; pointer-events: none; font-size: 10px;
+}
+
+/* ── Nav links ── */
+.nav-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 15px; border-radius: 999px;
+  background: var(--pri-soft);
+  border: 1px solid rgba(124,58,237,.18);
+  color: var(--primary); font-weight: 700; font-size: 13px;
+  text-decoration: none; cursor: pointer;
+  transition: background .2s, transform .18s, box-shadow .2s;
+}
+.nav-link:hover { transform: translateY(-1px); background: rgba(124,58,237,.16); box-shadow: 0 8px 20px rgba(124,58,237,.12); }
+
+/* ══ CONTAINER ══ */
+.container { width: min(1240px, 94%); margin: 28px auto; }
+
+/* ══ KPI ══ */
+.kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  transition: background .35s ease, box-shadow .35s ease, border-color .35s ease;
+  position: relative; overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute; right: -18px; top: -18px;
+  width: 80px; height: 80px; border-radius: 50%;
+  background: radial-gradient(circle, var(--pri-soft) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.kpi-icon { font-size: 22px; margin-bottom: 8px; }
+
+.value {
+  font-size: 28px; font-weight: 900;
+  background: linear-gradient(135deg, var(--primary), #a78bfa);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.label { font-size: 12px; color: var(--muted); margin-top: 5px; font-weight: 600; letter-spacing: .3px; }
+
+/* ══ FILTERS ══ */
+.filters {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 18px; align-items: center;
+}
+
+.filters-label { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+
+select {
+  padding: 9px 14px; border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface); color: var(--text);
+  font-size: 13px; font-weight: 600;
+  outline: none; cursor: pointer;
+  transition: background .35s ease, color .35s ease, border-color .35s ease;
+}
+select:focus { border-color: rgba(124,58,237,.45); box-shadow: 0 0 0 3px rgba(124,58,237,.10); }
+
+/* ══ MAIN GRID ══ */
+.grid {
+  display: grid; grid-template-columns: 2fr 1fr;
+  gap: 18px; margin-bottom: 18px;
+}
+
+.box {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 22px; box-shadow: var(--shadow); border: 1px solid var(--line);
+  transition: background .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+.box-title {
+  font-size: 14px; font-weight: 800; letter-spacing: -.2px;
+  margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+}
+
+/* ── Insight ── */
+.insight-body { font-size: 13.5px; color: var(--muted); line-height: 1.75; }
+
+.insight-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 11px 13px; border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--pri-soft);
+  margin-bottom: 10px;
+  transition: background .35s ease, border-color .35s ease;
+}
+.insight-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); margin-top: 6px; flex-shrink: 0; }
+
+/* ══ TABLE ══ */
+.table-wrap {
+  background: var(--surface); border-radius: var(--radius);
+  box-shadow: var(--shadow); border: 1px solid var(--line);
+  overflow: hidden;
+  transition: background .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+.table-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.table-title { font-size: 14px; font-weight: 800; }
+.table-count { font-size: 12px; font-weight: 700; color: var(--primary); padding: 4px 10px; border-radius: 999px; background: var(--pri-soft); border: 1px solid rgba(124,58,237,.16); }
+
+table { width: 100%; border-collapse: collapse; }
+
+th, td { padding: 13px 22px; font-size: 13px; text-align: left; }
+
+th {
+  background: var(--pri-soft);
+  font-weight: 700; font-size: 11px;
+  text-transform: uppercase; letter-spacing: .5px;
+  color: var(--muted);
+  transition: background .35s ease;
+}
+
+tr { border-bottom: 1px solid var(--line); transition: background .18s; }
+tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--pri-soft); }
+
+.badge {
+  display: inline-block; padding: 4px 10px; border-radius: 999px;
+  font-size: 11px; font-weight: 700;
+}
+.badge-ok   { background: rgba(5,150,105,.12);  color: #059669; }
+.badge-warn { background: rgba(245,158,11,.12); color: #d97706; }
+.badge-err  { background: rgba(220,38,38,.10);  color: #dc2626; }
+
+/* ══ TOAST ══ */
+.toast {
+  position: fixed; bottom: 28px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1a1a2e; color: #fff;
+  font-size: 12.5px; padding: 10px 20px; border-radius: 50px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.22);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .3s;
+  white-space: nowrap; z-index: 999;
+}
+[data-theme="dark"] .toast { background: #e8e8f5; color: #1a1a2e; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ══ EMPTY ══ */
+.empty { text-align: center; padding: 48px 20px; color: var(--muted); }
+.empty span { font-size: 40px; display: block; margin-bottom: 12px; }
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 900px) { .kpi { grid-template-columns: repeat(2, 1fr); } .grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .kpi { grid-template-columns: 1fr 1fr; } th, td { padding: 10px 14px; } }
+</style>
+</head>
+
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-brand-icon">📊</div>
+    <div>
+      <div class="nav-brand-text">AI Analytics</div>
+      <div class="nav-brand-sub">Tableau de bord</div>
+    </div>
+  </div>
+
+  <div class="nav-right">
+
+    <!-- Toggle thème -->
+    <label class="theme-toggle" title="Changer le thème" aria-label="Basculer mode sombre/clair">
+      <input type="checkbox" id="themeToggle"/>
+      <div class="track">
+        <div class="track-icons"><span>☀️</span><span>🌙</span></div>
+        <div class="thumb"></div>
+      </div>
+    </label>
+
+    <a href="/" class="nav-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+      </svg>
+      Accueil
+    </a>
+
+    <a href="/logout" class="nav-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+      </svg>
+      Déconnexion
+    </a>
+
+  </div>
+</nav>
+
+<!-- ══ CONTAINER ══ -->
+<div class="container">
+
+  <!-- KPI -->
+  <div class="kpi">
+    <div class="card">
+      <div class="kpi-icon">🎯</div>
+      <div class="value" id="acc">—</div>
+      <div class="label">Accuracy moyenne</div>
+    </div>
+    <div class="card">
+      <div class="kpi-icon">📐</div>
+      <div class="value" id="prec">—</div>
+      <div class="label">Precision moyenne</div>
+    </div>
+    <div class="card">
+      <div class="kpi-icon">🔁</div>
+      <div class="value" id="rec">—</div>
+      <div class="label">Recall moyen</div>
+    </div>
+    <div class="card">
+      <div class="kpi-icon">⚡</div>
+      <div class="value" id="f1">—</div>
+      <div class="label">F1 Score</div>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <span class="filters-label">🔽 Filtrer par module :</span>
+    <select id="filter">
+      <option value="all">Tous les modules</option>
+    </select>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="grid">
+
+    <div class="box">
+      <div class="box-title">📈 Évolution des performances</div>
+      <canvas id="chart" height="260"></canvas>
+    </div>
+
+    <div class="box">
+      <div class="box-title">📌 Insights</div>
+      <div id="insight" class="insight-body"></div>
+    </div>
+
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <div class="table-header">
+      <span class="table-title">📋 Historique détaillé</span>
+      <span class="table-count" id="rowCount">0 entrée(s)</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Module</th>
+          <th>Accuracy</th>
+          <th>Precision</th>
+          <th>Recall</th>
+          <th>F1</th>
+          <th>Statut</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  /* ════════════════════════════════════════════
+     THÈME — clé partagée : "app_theme"
+     Identique à login / register / index
+  ════════════════════════════════════════════ */
+  const LS_THEME  = 'app_theme';
+  const htmlEl    = document.documentElement;
+  const toggleEl  = document.getElementById('themeToggle');
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  function applyTheme(theme, notify = false) {
+    htmlEl.setAttribute('data-theme', theme);
+    toggleEl.checked = (theme === 'dark');
+    localStorage.setItem(LS_THEME, theme);
+    if (notify) showToast(theme === 'dark' ? '🌙 Mode sombre activé' : '☀️ Mode clair activé');
+    if (window._chart) updateChartColors();
+  }
+
+  /* Initialisation (le snippet inline a déjà posé data-theme sur <html>) */
+  (function () {
+    const saved = localStorage.getItem(LS_THEME);
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      applyTheme('dark', false);
+    } else {
+      applyTheme('light', false);
+    }
+  })();
+
+  toggleEl.addEventListener('change', () => {
+    applyTheme(toggleEl.checked ? 'dark' : 'light', true);
+  });
+
+  /* ════════════════════════════════════════════
+     DONNÉES FLASK
+  ════════════════════════════════════════════ */
+  let stats = JSON.parse('{{ stats | tojson | safe }}') || [];
+
+  /* ════════════════════════════════════════════
+     FILTRE MODULES
+  ════════════════════════════════════════════ */
+  const filterEl = document.getElementById('filter');
+  const modules  = [...new Set(stats.map(s => s.module))];
+
+  modules.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m; opt.textContent = m;
+    filterEl.appendChild(opt);
+  });
+
+  filterEl.addEventListener('change', () => render(filtered()));
+
+  function filtered() {
+    const v = filterEl.value;
+    return v === 'all' ? stats : stats.filter(s => s.module === v);
+  }
+
+  /* ════════════════════════════════════════════
+     COULEURS CHART selon thème
+  ════════════════════════════════════════════ */
+  function isDark() { return htmlEl.getAttribute('data-theme') === 'dark'; }
+
+  function chartColors() {
+    return {
+      grid:  isDark() ? 'rgba(148,163,184,.10)' : 'rgba(148,163,184,.18)',
+      label: isDark() ? '#94a3b8' : '#64748b',
+    };
+  }
+
+  function updateChartColors() {
+    if (!window._chart) return;
+    const c = chartColors();
+    window._chart.options.scales.x.grid.color  = c.grid;
+    window._chart.options.scales.y.grid.color  = c.grid;
+    window._chart.options.scales.x.ticks.color = c.label;
+    window._chart.options.scales.y.ticks.color = c.label;
+    window._chart.update('none');
+  }
+
+  /* ════════════════════════════════════════════
+     RENDER
+  ════════════════════════════════════════════ */
+  function render(data) {
+
+    /* ── KPI ── */
+    const n = data.length || 1;
+    const sum = (k) => data.reduce((a, s) => a + (s[k] || 0), 0);
+    document.getElementById('acc').textContent  = (sum('accuracy')  / n).toFixed(2);
+    document.getElementById('prec').textContent = (sum('precision') / n).toFixed(2);
+    document.getElementById('rec').textContent  = (sum('recall')    / n).toFixed(2);
+    document.getElementById('f1').textContent   = (sum('f1')        / n).toFixed(2);
+
+    /* ── TABLE ── */
+    const tbody = document.getElementById('rows');
+    tbody.innerHTML = '';
+
+    if (!data.length) {
+      tbody.innerHTML = `<tr><td colspan="7"><div class="empty"><span>📭</span>Aucune donnée disponible</div></td></tr>`;
+    } else {
+      data.forEach(s => {
+        const f1v = (s.f1 || 0);
+        const badge = f1v >= 0.7
+          ? `<span class="badge badge-ok">✅ Bon</span>`
+          : f1v >= 0.4
+            ? `<span class="badge badge-warn">⚠️ Moyen</span>`
+            : `<span class="badge badge-err">❌ Faible</span>`;
+
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${s.module}</strong></td>
+            <td>${(s.accuracy  || 0).toFixed(2)}</td>
+            <td>${(s.precision || 0).toFixed(2)}</td>
+            <td>${(s.recall    || 0).toFixed(2)}</td>
+            <td>${(s.f1        || 0).toFixed(2)}</td>
+            <td>${badge}</td>
+            <td>${s.date || '—'}</td>
+          </tr>`;
+      });
+    }
+
+    document.getElementById('rowCount').textContent = `${data.length} entrée(s)`;
+
+    /* ── CHART ── */
+    const labels  = data.map(s => `${s.module} (${s.date ? s.date.slice(0,10) : ''})`);
+    const accData = data.map(s => +(s.accuracy  || 0).toFixed(2));
+    const f1Data  = data.map(s => +(s.f1        || 0).toFixed(2));
+    const c = chartColors();
+
+    if (window._chart) { window._chart.destroy(); window._chart = null; }
+
+    window._chart = new Chart(document.getElementById('chart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Accuracy',
+            data: accData,
+            borderColor: '#7c3aed',
+            backgroundColor: 'rgba(124,58,237,.12)',
+            borderWidth: 2.5,
+            pointRadius: 4,
+            pointBackgroundColor: '#7c3aed',
+            tension: 0.4, fill: true,
+          },
+          {
+            label: 'F1 Score',
+            data: f1Data,
+            borderColor: '#06b6d4',
+            backgroundColor: 'rgba(6,182,212,.08)',
+            borderWidth: 2.5,
+            pointRadius: 4,
+            pointBackgroundColor: '#06b6d4',
+            tension: 0.4, fill: true,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: c.label, font: { weight: '700', size: 12 } } },
+          tooltip: { mode: 'index', intersect: false }
+        },
+        scales: {
+          x: { grid: { color: c.grid }, ticks: { color: c.label, font: { size: 11 } } },
+          y: { min: 0, max: 1, grid: { color: c.grid }, ticks: { color: c.label, font: { size: 11 } } }
+        }
+      }
+    });
+
+    /* ── INSIGHTS ── */
+    const insightEl = document.getElementById('insight');
+    if (!data.length) {
+      insightEl.innerHTML = `<p style="color:var(--muted)">Aucune donnée à analyser.</p>`;
+      return;
+    }
+
+    const avgAcc = (sum('accuracy') / n).toFixed(2);
+    const avgF1  = (sum('f1')       / n).toFixed(2);
+    const best   = data.reduce((a, b) => (b.f1 || 0) > (a.f1 || 0) ? b : a);
+    const worst  = data.reduce((a, b) => (b.f1 || 0) < (a.f1 || 0) ? b : a);
+
+    insightEl.innerHTML = `
+      <div class="insight-item"><div class="insight-dot"></div><span>Accuracy moyenne globale : <strong>${avgAcc}</strong></span></div>
+      <div class="insight-item"><div class="insight-dot"></div><span>F1 Score moyen : <strong>${avgF1}</strong></span></div>
+      <div class="insight-item"><div class="insight-dot"></div><span>Meilleur module : <strong>${best.module}</strong> (F1 = ${(best.f1||0).toFixed(2)})</span></div>
+      <div class="insight-item"><div class="insight-dot"></div><span>Module à améliorer : <strong>${worst.module}</strong> (F1 = ${(worst.f1||0).toFixed(2)})</span></div>
+    `;
+  }
+
+  /* Rendu initial */
+  render(filtered());
+</script>
+</body>
+</html>
