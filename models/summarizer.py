@@ -6,6 +6,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndB
 # 🚀 CONFIGURATION DU MODÈLE
 # =========================
 MODEL_ID = "Qwen/Qwen2.5-3B-Instruct"
+CACHE_DIR = "D:/Projet/AI/models"
 
 print("🔄 Chargement du Summarizer (Qwen 4-bit)...")
 
@@ -18,12 +19,14 @@ try:
         bnb_4bit_compute_dtype=torch.bfloat16
     )
 
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_ID, cache_dir = CACHE_DIR)
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_ID,
-        quantization_config=quant_config,
-        device_map="auto",
-        trust_remote_code=True
+        quantization_config = quant_config,
+        device_map = "auto",
+        trust_remote_code = True,
+        cache_dir = CACHE_DIR,
+        low_cpu_mem_usage = True
     )
 
     # Utilisation de la tâche "text-generation" (plus flexible que "summarization" pour les modèles Instruct)

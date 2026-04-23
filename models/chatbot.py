@@ -7,6 +7,7 @@ from rank_bm25 import BM25Okapi
 # 🚀 CONFIGURATION DES MODÈLES
 # ──────────────────────────────────────────────
 MODEL_ID = "Qwen/Qwen2.5-3B-Instruct"
+CACHE_DIR = "D:/Projet/AI/models"
 
 # Configuration de quantification pour Qwen (8GB VRAM friendly)
 quant_config = BitsAndBytesConfig(
@@ -19,23 +20,29 @@ quant_config = BitsAndBytesConfig(
 print("🔄 Chargement des modèles (Embedding + Qwen 4-bit)...")
 
 # Modèles de recherche (CPU/GPU auto via sentence-transformers)
-embed_model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
-reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
+embed_model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2', cache_folder = CACHE_DIR)
+reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2', cache_folder = CACHE_DIR)
 
 # Modèle de génération (Qwen 2.5)
-tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
+tokenizer = AutoTokenizer.from_pretrained(
+    MODEL_ID, 
+    cache_dir = CACHE_DIR
+)
 model = AutoModelForCausalLM.from_pretrained(
     MODEL_ID,
-    quantization_config=quant_config,
-    device_map="auto",
-    trust_remote_code=True
+    quantization_config = quant_config,
+    device_map = "auto",
+    trust_remote_code = True,
+    cache_dir = CACHE_DIR,
+    low_cpu_mem_usage = True
 )
 
 # Correction Task: "text-generation"
 generator = pipeline(
     "text-generation",
     model=model,
-    tokenizer=tokenizer
+    tokenizer=tokenizer,
+    device_map = "auto"
 )
 
 

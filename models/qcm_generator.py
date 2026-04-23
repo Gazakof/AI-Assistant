@@ -6,7 +6,7 @@ from collections import deque
 from typing import TypedDict
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndBytesConfig
 
 # =========================
 # 📝 LOGGING
@@ -17,11 +17,12 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 # =========================
 # 🚀 CONFIGURATION
 # =========================
-MODEL_ID          = "Qwen/Qwen2.5-1.5B-Instruct"
-TOTAL_QUESTIONS   = 8
-MAX_WORDS         = 350   # légèrement plus pour donner plus de contexte au modèle
-MAX_RETRIES       = 2
-MAX_NEW_TOKENS    = 512   # ↓ depuis 800 — suffisant pour 8 questions compactes
+MODEL_ID = "Qwen/Qwen2.5-1.5B-Instruct"
+CACHE_DIR = "D:/Projet/AI/models"
+TOTAL_QUESTIONS = 8
+MAX_WORDS = 350   # légèrement plus pour donner plus de contexte au modèle
+MAX_RETRIES = 2
+MAX_NEW_TOKENS = 512   # ↓ depuis 800 — suffisant pour 8 questions compactes
 
 # =========================
 # ⚡ REGEX COMPILÉS (module-level, O(1) lookup)
@@ -69,37 +70,53 @@ def get_generator():
 
     logger.info("🔄 Chargement du modèle (%s)…", MODEL_ID)
 
+    # 🔥 Config quantization (comme chat.py)
+    quant_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_use_double_quant=True,
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_compute_dtype=torch.bfloat16
+    )
+
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_ID, cache_dir = CACHE_DIR)
+
     if torch.cuda.is_available():
-        tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
         model = AutoModelForCausalLM.from_pretrained(
             MODEL_ID,
-            torch_dtype=torch.float16,
-            attn_implementation="sdpa",   # Flash-Attention 2 si dispo, SDPA sinon
+            # torch_dtype=torch.float16,
+            # attn_implementation="sdpa",   # Flash-Attention 2 si dispo, SDPA sinon
+            quantization_config=quant_config,
             device_map="auto",
             trust_remote_code=True,
+            cache_dir=CACHE_DIR,
+            low_cpu_mem_usage=True
         )
+        
         try:
             model = torch.compile(model, mode="reduce-overhead")
             logger.info("⚡ torch.compile activé (reduce-overhead).")
         except Exception as e:
             logger.warning("⚠️ torch.compile indisponible : %s", e)
 
-        _generator = pipeline(
-            "text-generation",
-            model=model,
-            tokenizer=tokenizer,
-            return_full_text=False,   # ← ne retourne QUE la partie générée (plus rapide)
-        )
         logger.info("✅ Modèle chargé sur GPU.")
+
     else:
         logger.warning("⚠️ GPU non disponible — mode CPU.")
-        _generator = pipeline(
-            "text-generation",
-            model=MODEL_ID,
-            device_map="cpu",
-            return_full_text=False,
-        )
 
+        model = AutoModelForCausalLM.from_pretrained(
+            MODEL_ID,
+            device_map="cpu",
+            cache_dir=CACHE_DIR,
+            low_cpu_mem_usage=True
+        )
+    
+
+    _generator = pipeline(
+        "text-generation",
+        model=model,
+        tokenizer=tokenizer,
+        return_full_text=False,   # ← ne retourne QUE la partie générée (plus rapide)
+    )
     return _generator
 
 
